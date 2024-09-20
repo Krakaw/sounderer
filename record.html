@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <meta charset="utf-8">
   <title>Microphone Recorder</title>
@@ -14,12 +15,19 @@
       flex-direction: column;
       align-items: center;
     }
-    
+
+    #status {
+      width: 100%;
+      overflow: hidden;
+      color: red;
+    }
+
     #soundBar {
       width: 100%;
       height: 50px;
-      background-color: #f0f0f0;
+      /* background-color: #f0f0f0; */
     }
+
     #logo {
       cursor: pointer;
       width: 128px;
@@ -28,14 +36,19 @@
     }
 
     #logo.recording {
-      opacity: 0.6; /* Change opacity to indicate recording state */
-      transform: scale(1.1); /* Slightly enlarge the image when recording */
+      opacity: 0.6;
+      /* Change opacity to indicate recording state */
+      transform: scale(1.1);
+      /* Slightly enlarge the image when recording */
     }
   </style>
 </head>
+
 <body>
-    <img id="logo" src="logo.png" alt="Microphone Logo">
+  <img id="logo" src="logo.png" alt="Microphone Logo">
+  <div id="status"></div>
   <canvas id="soundBar"></canvas>
-  <script src="popup.js"></script>
+  <script src="record.js"></script>
 </body>
+
 </html>

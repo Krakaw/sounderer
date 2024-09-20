@@ -2,6 +2,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const recordButton = document.getElementById('logo');
     const canvas = document.getElementById('soundBar');
     const canvasCtx = canvas.getContext('2d');
+    const status = document.getElementById('status');
   
     let isRecording = false;
     let mediaRecorder;
@@ -31,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
       analyser.getByteTimeDomainData(dataArray);
   
       // Clear the canvas
-      canvasCtx.fillStyle = '#f0f0f0';
+      canvasCtx.fillStyle = '#fff';
       canvasCtx.fillRect(0, 0, WIDTH, HEIGHT);
   
       // Set line style
@@ -139,7 +140,7 @@ document.addEventListener('DOMContentLoaded', function() {
     recordButton.addEventListener('click', function() {
       if (!isRecording) {
         // Start recording
-        navigator.mediaDevices.getUserMedia({ audio: true })
+        window.navigator.mediaDevices.getUserMedia({ audio: true })
           .then(function(s) {
             stream = s;
             mediaRecorder = new MediaRecorder(stream);
@@ -179,6 +180,12 @@ document.addEventListener('DOMContentLoaded', function() {
           })
           .catch(function(err) {
             console.log('Error accessing microphone: ' + err);
+            if (err.name === 'NotAllowedError') {
+              status.innerText = 'Microphone access was blocked. Please enable it in your browser settings.';
+            }
+            if (err.name === 'NotFoundError') {
+              status.innerText = 'No microphone found on this device.';
+            }
           });
       } else {
         // Stop recording
@@ -191,4 +198,3 @@ document.addEventListener('DOMContentLoaded', function() {
       }
     });
   });
-  
